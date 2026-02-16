@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { 
   Users, 
   Edit3, 
   Trash2, 
   Plus, 
-  Filter,
   Calendar,
   Clock,
   AlertTriangle,
@@ -16,11 +15,10 @@ import {
   Brain,
   ChevronLeft,
   ChevronRight,
-  Phone,
   Heart,
   Shield
 } from 'lucide-react';
-import { ExtractedTask, TaskDatabase } from '../services/nlpService';
+import { ExtractedTask } from '../services/nlpService';
 
 interface CaregiverDashboardProps {
   tasks: ExtractedTask[];
@@ -100,9 +98,7 @@ const CaregiverDashboard: React.FC<CaregiverDashboardProps> = ({
     });
   };
 
-  const getDayName = (date: Date) => {
-    return date.toLocaleDateString('en-US', { weekday: 'short' });
-  };
+
 
   const getMonthName = (date: Date) => {
     return date.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
@@ -429,7 +425,7 @@ const CaregiverDashboard: React.FC<CaregiverDashboardProps> = ({
                       {isToday && <span className="ml-1 text-blue-600">•</span>}
                     </div>
                     <div className="space-y-1 max-h-16 overflow-y-auto">
-                      {dayTasks.slice(0, 3).map((task, index) => (
+                      {dayTasks.slice(0, 3).map((task) => (
                         <div
                           key={task.id}
                           className={`text-xs p-1 rounded truncate ${
