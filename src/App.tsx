@@ -2,14 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { 
   Mic, 
   MessageSquare, 
-  Shield, 
   Users, 
   CheckCircle, 
   Heart,
   Brain,
-  Smartphone,
   Lock,
-  Play,
   Plus,
   Trash2,
   Edit3,
@@ -18,7 +15,8 @@ import {
 } from 'lucide-react';
 import NLPTaskProcessor from './components/NLPTaskProcessor';
 import CaregiverDashboard from './components/CaregiverDashboard';
-import { ExtractedTask, TaskDatabase } from './services/nlpService';
+import MemoryTimeline from './features/memoryTimeline';
+import { ExtractedTask } from './services/nlpService';
 import logo from './image/logotext_poweredby_360w.png';
 
 function App() {
@@ -33,11 +31,9 @@ function App() {
   const [isListening, setIsListening] = useState(false);
   const [speechSupported, setSpeechSupported] = useState(false);
   const [recognition, setRecognition] = useState<any>(null);
-  const [activeTab, setActiveTab] = useState<'simple' | 'nlp' | 'caregiver'>('simple');
+  const [activeTab, setActiveTab] = useState<'simple' | 'nlp' | 'caregiver' | 'memory'>('simple');
   const [summary, setSummary] = useState('');
   const [originalInput, setOriginalInput] = useState('');
-
-  const taskDB = new TaskDatabase();
 
   // Initialize speech recognition
   useEffect(() => {
@@ -442,6 +438,19 @@ function App() {
                   )}
                 </div>
               </button>
+              <button
+                onClick={() => setActiveTab('memory')}
+                className={`px-6 py-3 rounded-lg font-medium transition-colors ${
+                  activeTab === 'memory'
+                    ? 'bg-white text-blue-600 shadow-sm'
+                    : 'text-gray-600 hover:text-gray-900'
+                }`}
+              >
+                <div className="flex items-center gap-2">
+                  <Heart className="h-4 w-4" />
+                  Memory Timeline
+                </div>
+              </button>
             </div>
           </div>
 
@@ -574,6 +583,10 @@ function App() {
               onTaskDelete={handleTaskDelete}
               onTaskAdd={handleTaskAdd}
             />
+          )}
+
+          {activeTab === 'memory' && (
+            <MemoryTimeline />
           )}
         </div>
       </section>

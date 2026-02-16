@@ -3,7 +3,6 @@ import {
   Brain, 
   Loader2, 
   CheckCircle, 
-  AlertCircle, 
   Clock,
   User,
   Calendar,

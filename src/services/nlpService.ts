@@ -156,7 +156,7 @@ export class NLPTaskExtractor {
 
       return {
         tasks: tasks.slice(0, 10),
-        summary: aiSummary || this.generateSummary(tasks, originalInput),
+        summary: aiSummary || this.generateSummary(tasks),
         confidence: Math.min(0.95, 0.8 + (tasks.length * 0.05))
       };
     } catch (error) {
@@ -219,7 +219,7 @@ export class NLPTaskExtractor {
       tasks.push(generalTask);
     }
     
-    const summary = this.generateSummary(tasks, input);
+    const summary = this.generateSummary(tasks);
     
     return {
       tasks: tasks.slice(0, 10), // Limit to 10 tasks max
@@ -258,7 +258,7 @@ export class NLPTaskExtractor {
     return this.cleanTaskText(task);
   }
 
-  private generateSummary(tasks: ExtractedTask[], originalInput: string): string {
+  private generateSummary(tasks: ExtractedTask[]): string {
     if (tasks.length === 0) {
       return "I couldn't identify specific tasks from your input, but I've created a general reminder for you.";
     }
